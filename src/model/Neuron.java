@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Neuron {
-	private Map<Stimulus, ArrayList<Double> > spikeTimes;
+	private Map<Stimulus, ArrayList<double[]> > spikeTimes;
 	
 	public Neuron(){
-		spikeTimes = new HashMap<Stimulus, ArrayList<Double> >();
+		spikeTimes = new HashMap<Stimulus, ArrayList<double[]> >();
 	}
 	
-	public Map<Stimulus,ArrayList<Double> > getSpikesMap(){
+	public Map<Stimulus,ArrayList<double[]> > getSpikesMap(){
 		return spikeTimes;
 	}
 }
