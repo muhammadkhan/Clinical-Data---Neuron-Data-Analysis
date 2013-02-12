@@ -30,10 +30,10 @@ public class DataParser {
 					double[] arr = new double[Integer.parseInt(parts[0])];
 					for(int i = 0; i < arr.length; i++)
 						arr[i] = Double.parseDouble(parts[i+1]);
+					ts.add(arr);
 					ret.add(curNeuron);
 				} catch(NumberFormatException e){
 					if(parts[0].equals("Neuron")){
-						System.out.println(parts[0]);
 						/*if(!ret.isEmpty()){
 							System.out.println("ret is nonempty");
 							ret.add(curNeuron);
