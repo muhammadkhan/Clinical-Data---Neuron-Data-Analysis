@@ -14,4 +14,19 @@ public class Neuron {
 	public Map<Stimulus,ArrayList<double[]> > getSpikesMap(){
 		return spikeTimes;
 	}
+	
+	public ArrayList<Stimulus> sensitiveStimuli(){
+		Stimulus[] ss = {Stimulus.N,Stimulus.Q,Stimulus.H,Stimulus.S,Stimulus.NQ,Stimulus.NH,Stimulus.NS,Stimulus.HQ,Stimulus.HS,Stimulus.SQ};
+		ArrayList<Stimulus> stimuli = new ArrayList<Stimulus>();
+		for(Stimulus s : ss){
+			ArrayList<double[]> ald = spikeTimes.get(s);
+			double avg = 0;
+			for(double[] darr : ald){
+				avg += darr.length / ald.size();
+			}
+			if(avg >= 30.0)
+				stimuli.add(s);
+		}
+		return stimuli;
+	}
 }

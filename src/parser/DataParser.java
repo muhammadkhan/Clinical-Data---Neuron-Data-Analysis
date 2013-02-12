@@ -87,9 +87,10 @@ public class DataParser {
 	public static void main(String[] args){
 		Set<Neuron> data = parseFile("src/parser/parsetest.txt");
 		for(Neuron n : data){
-			ArrayList<double[]> a = n.getSpikesMap().get(Stimulus.N);
+			/*ArrayList<double[]> a = n.getSpikesMap().get(Stimulus.N);
 			for(int i = 0; i < a.size(); i++)
-			System.out.println(a.get(i).length);
+			System.out.println(a.get(i).length);*/
+			System.out.println(n.sensitiveStimuli());
 		}
 	}
 }
