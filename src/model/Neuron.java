@@ -29,4 +29,9 @@ public class Neuron {
 		}
 		return stimuli;
 	}
+	
+	
+	
+	
+	
 }
