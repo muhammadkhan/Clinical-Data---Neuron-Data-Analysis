@@ -128,13 +128,32 @@ public class ResponseSpace{
 	 * @return
 	 */
 	//ideally this would not return an Object[], but a double[]
-	public Object[] filter(double start, double fin, double[] x){
+	public double[] filter(double start, double fin, double[] x){
 	  ArrayList<Double> acc = new ArrayList<Double>();
 	  for(int i = 0; i < x.length; i++){
 	    if ((x[i] <= fin) && (x[i] >= start)){acc.add(x[i]);} 
 	  }
-	  return acc.toArray(); 
+	  double[] ret = new double[acc.size()];
+	  for(int i = 0; i < ret.length; i++)
+		  ret[i] = acc.get(i);
+	  return ret;
 	}
+	
+	
+	/**
+	 * Returns the set of spike times that we want 
+	 * @param n
+	 * @return
+	 */
+	public double[][] getCompSet(Neuron n){
+		
+		
+		
+		
+		return null;
+	}
+	
+	
 	
 	public static void main(String[] args){
 		ResponseSpace k = new ResponseSpace();
@@ -160,9 +179,6 @@ public class ResponseSpace{
 		//need to perform tests on the test case input that we have.
 		//Basically we should take like 9 neurons as the test set, that
 		//way we are able to construct an adequate set to model on. 
-		
-		
-		
 	}
 }
 
