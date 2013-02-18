@@ -163,7 +163,7 @@ public class ResponseSpace{
 	 * @param x
 	 * @return
 	 */
-	public ArrayList calculateResponseSpace(ArrayList<double[]> x){
+	public ArrayList calculateComparisonSpace(ArrayList<double[]> x){
 		//how do we create the tuple types that we want to return?
 		ArrayList<double[]> acc = new ArrayList<double[]>();
 		for(int i = 0; i < x.size(); i++){
@@ -180,16 +180,23 @@ public class ResponseSpace{
 	 * This will return all of the costs involved to compare 
 	 * the spike trains of this neuron-stimulus pair.
 	 * From this we are able to show that there is a good fit/bad fit 
-	 * with 
+	 * with an aggregation of the costs.
 	 * @param n
 	 * @param s
 	 * @return
 	 */
-	public ArrayList createResponseSpace(Neuron n, Stimulus s){
-		return this.calculateResponseSpace(n.getStimulus_Spikes(n, s));
-
+	public ArrayList createComparisionSpace(Neuron n, Stimulus s){
+		return this.calculateComparisonSpace(n.getStimulus_Spikes(n, s));
 	}
 	
+	/**
+	 * Will create a response space for one neuron given all of its 
+	 * spike train data.
+	 * @param n
+	 */
+	public void analyzeData(Neuron n){
+	  	
+	}
 	
 	
 	
