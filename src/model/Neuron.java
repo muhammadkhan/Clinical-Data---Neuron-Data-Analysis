@@ -16,6 +16,19 @@ public class Neuron {
 	}
 	
 	/**
+	 * Gets an arrayList of the spiketimes for this Neuron-Stimulus pair.
+	 * We use this in the ResponseSpace Class to construct our comparisons
+	 * between spike trains of the same stimuli  
+	 * @param n
+	 * @param x
+	 * @return
+	 */
+	public ArrayList<double[]> getStimulus_Spikes(Neuron n, Stimulus x){
+		Map m = n.getSpikesMap();
+		return (ArrayList<double[]>) m.get(x);
+	}
+	
+	/**
 	 * Returns the sensitive stimuli of that particular Neuron
 	 * @return
 	 */
@@ -34,18 +47,7 @@ public class Neuron {
 		return stimuli;
 	}
 	
-	/**
-	 * Gets an arrayList of the spiketimes for this Neuron-Stimulus pair.
-	 * We use this in the ResponseSpace Class to construct our comparisons
-	 * between spike trains of the same stimuli  
-	 * @param n
-	 * @param x
-	 * @return
-	 */
-	public ArrayList<double[]> getStimulus_Spikes(Neuron n, Stimulus x){
-		Map m = n.getSpikesMap();
-		return (ArrayList<double[]>) m.get(x);
-	}
+
 	
 	
 }

@@ -31,11 +31,6 @@
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 % These packages are all incorporated in the memoir class to one degree or another...
 
-%%% SECTION TITLE APPEARANCE
-\usepackage{sectsty}
-\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
-% (This matches ConTeXt defaults)
-
 %%% ToC (table of contents) APPEARANCE
 \usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
@@ -55,13 +50,32 @@
 \maketitle
 
 \section{Determining Neuron Sensitivity}
+\subsection{Stimulus Class}
+The stimulus class is used to give an object definition in Java for each particular stimulus. We define the stimulus as an enum, so there are no fields that we have to extend for each stimulus. The stimuli are used as a defining piece of data our construction of the Neuron Class.
+
+\subsection{Neuron Class}
+This is a class that we developed in order to accurately represent a neuron. The defining feature of the class is the map that is representative of the spike trains that are recorded for each stimuli. We define the map as $spiketimes$, which is a hashmap which takes a stimulus as a key and outputs a double array detailing all of the spike times for that particular stimulus. 
+%reword the algorithm used here a bit
+\subsubsection{Sensitive Stimuli}
+This is a simple method to compute (roughly) whether a neuron is sensitive to a a particular stimulus. We first create an outer loop to iterate through the list of all possible stimuli, where we choose a stimulus $s$. Within that outer loop, we have two inner loops to iterate through the different spike time trials for $s$. We have an average counter $avg$ which maintains the average spike number from all of the trials that we have gone through for that particular stimulus. 
+
+At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. 
+
+We also have a method that computes of 
+
+
+
+\subsection{DataParser}
+In order to use the data provided within the text file, we had to develop a  
 
 
 
 
 
+\section{Creating a Response Space}
+\subsection{ResponseSpace}
+The response space class that we defined performs a lot of the analysis that is needed to run our model. 
 
-\subsection{A subsection}
 
 More text.
 
