@@ -128,7 +128,7 @@ public class ResponseSpace{
 	 * @return
 	 */
 	//ideally this would not return an Object[], but a double[]
-	public double[] filter(double start, double fin, double[] x){
+	public static double[] filter(double start, double fin, double[] x){
 	  ArrayList<Double> acc = new ArrayList<Double>();
 	  for(int i = 0; i < x.length; i++){
 	    if ((x[i] <= fin) && (x[i] >= start)){acc.add(x[i]);} 
@@ -139,19 +139,57 @@ public class ResponseSpace{
 	  return ret;
 	}
 	
-	
 	/**
 	 * Returns the set of spike times that we want 
 	 * @param n
 	 * @return
 	 */
-	public double[][] getCompSet(Neuron n){
-		
-		
-		
-		
-		return null;
+	//ideally we would want to return a double[][]
+	public ArrayList<double[]> getCompSet(Neuron n, Stimulus s){
+	  ArrayList<double[]> s_t = n.getStimulus_Spikes(n, s);
+	  ArrayList<double[]> acc = new ArrayList<double[]>();
+	  for(int i = 0; i < s_t.size(); i++){
+	    double[] intermediate = filter(20.0, 22.0, s_t.get(i));
+	    acc.add(intermediate);
+	  }
+	  return acc;
 	}
+	
+	//need to return the changing value for every possible combination
+	//of nerves that deal with that stimulus. 
+	/**
+	 * Returns the adjustment score between all of the different 
+	 * spike trains for a given neuron and stimulus. 
+	 * @param x
+	 * @return
+	 */
+	public ArrayList calculateResponseSpace(ArrayList<double[]> x){
+		//how do we create the tuple types that we want to return?
+		ArrayList<double[]> acc = new ArrayList<double[]>();
+		for(int i = 0; i < x.size(); i++){
+		  for(int j = 0; j< x.size(); j++){
+			double score = this.align(x.get(i), x.get(j));
+			double[] set = {i,j,score};
+			acc.add(set);
+		  }		
+		}
+		return acc;
+	}
+	
+	/**
+	 * This will return all of the costs involved to compare 
+	 * the spike trains of this neuron-stimulus pair.
+	 * From this we are able to show that there is a good fit/bad fit 
+	 * with 
+	 * @param n
+	 * @param s
+	 * @return
+	 */
+	public ArrayList createResponseSpace(Neuron n, Stimulus s){
+		return this.calculateResponseSpace(n.getStimulus_Spikes(n, s));
+
+	}
+	
 	
 	
 	
