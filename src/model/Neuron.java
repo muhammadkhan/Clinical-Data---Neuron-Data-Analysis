@@ -15,6 +15,10 @@ public class Neuron {
 		return spikeTimes;
 	}
 	
+	/**
+	 * Returns the sensitive stimuli of that particular Neuron
+	 * @return
+	 */
 	public ArrayList<Stimulus> sensitiveStimuli(){
 		Stimulus[] ss = {Stimulus.N,Stimulus.Q,Stimulus.H,Stimulus.S,Stimulus.NQ,Stimulus.NH,Stimulus.NS,Stimulus.HQ,Stimulus.HS,Stimulus.SQ};
 		ArrayList<Stimulus> stimuli = new ArrayList<Stimulus>();
@@ -30,9 +34,18 @@ public class Neuron {
 		return stimuli;
 	}
 	
-	//Need a method to get all of the double arrays 
-	//for each particular stimulus-neuron pair 
-	//public double[] getStimulus
+	/**
+	 * Gets an arrayList of the spiketimes for this Neuron-Stimulus pair.
+	 * We use this in the ResponseSpace Class to construct our comparisons
+	 * between spike trains of the same stimuli  
+	 * @param n
+	 * @param x
+	 * @return
+	 */
+	public ArrayList<double[]> getStimulus_Spikes(Neuron n, Stimulus x){
+		Map m = n.getSpikesMap();
+		return (ArrayList<double[]>) m.get(x);
+	}
 	
 	
 	

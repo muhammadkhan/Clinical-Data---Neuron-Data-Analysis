@@ -95,8 +95,8 @@ public class ResponseSpace{
 		if (a.length < b.length){
 		  //in this instance we must add all of the values 	
 		  double[] a_prime = Arrays.copyOf(a, b.length);
-		  System.out.println("First: "+ Arrays.toString(a));
-		  System.out.println("Second: "+ Arrays.toString(a_prime));
+		  System.out.println("Before: "+ Arrays.toString(a));
+		  System.out.println("After: "+ Arrays.toString(a_prime));
 		  //we add all of the values that are not in A
 		  for (int i = a.length; i < b.length; i++){
 			  cost += 1;
@@ -109,6 +109,8 @@ public class ResponseSpace{
 		else if (a.length > b.length){
 		  //We can do copyOfRange to make them equal length
 		  double[] a_prime = Arrays.copyOfRange(a, 0, b.length);
+		  System.out.println("Before: "+ Arrays.toString(a));
+		  System.out.println("After: "+ Arrays.toString(a_prime));
 		  //we also need to truncate A, because 
 		  cost += align2(a_prime,b);
 		}
@@ -149,11 +151,18 @@ public class ResponseSpace{
 		//So this has the case a > b
 		double cost2 = k.align(c,d);
 		System.out.println("The a > b case has cost: " + cost2);
-//		
-//		double[] e = {2.0, 3.0, 4.0};
-//		double[] f = {1.0, 2.0, 3.0, 4.0, 5.0};
-//		double cost3 = k.align(e, f);
-//		System.out.println("The a < b case has cost: " + cost3);
+		
+		double[] e = {2.0, 3.0, 4.0};
+		double[] f = {1.0, 2.0, 3.0, 4.0, 5.0};
+		double cost3 = k.align(e, f);
+		System.out.println("The a < b case has cost: " + cost3);
+		
+		//need to perform tests on the test case input that we have.
+		//Basically we should take like 9 neurons as the test set, that
+		//way we are able to construct an adequate set to model on. 
+		
+		
+		
 	}
 }
 
