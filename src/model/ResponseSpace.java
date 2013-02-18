@@ -108,8 +108,9 @@ public class ResponseSpace{
 		//since we do not want to eliminate "good" data
 		else if (a.length > b.length){
 		  //We can do copyOfRange to make them equal length
-		  double[] b_prime = Arrays.copyOfRange(a, 0, b.length-1);
-		  cost += align2(a,b_prime);
+		  double[] a_prime = Arrays.copyOfRange(a, 0, b.length);
+		  //we also need to truncate A, because 
+		  cost += align2(a_prime,b);
 		}
 		else cost = align2(a,b);
 		return cost;
