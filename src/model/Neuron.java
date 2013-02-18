@@ -30,6 +30,10 @@ public class Neuron {
 		return stimuli;
 	}
 	
+	//Need a method to get all of the double arrays 
+	//for each particular stimulus-neuron pair 
+	//public double[] getStimulus
+	
 	
 	
 	
