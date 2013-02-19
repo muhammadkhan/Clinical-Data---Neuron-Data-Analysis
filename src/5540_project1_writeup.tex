@@ -59,22 +59,20 @@ This is a class that we developed in order to accurately represent a neuron. The
 \subsubsection{Sensitive Stimuli}
 This is a simple method to compute (roughly) whether a neuron is sensitive to a a particular stimulus. We first create an outer loop to iterate through the list of all possible stimuli, where we choose a stimulus $s$. Within that outer loop, we have two inner loops to iterate through the different spike time trials for $s$. We have an average counter $avg$ which maintains the average spike number from all of the trials that we have gone through for that particular stimulus. 
 
-At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. We have set the "cutoff" point for the number of spikes to be an average of 30 for a given stimulus $s$. This was a 
+At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. We have set the "cutoff" point for the number of spikes to be an average of 30 for a given stimulus $s$. This was arbitrarily decided from looking at the training data that we had divided our set into. 
 
-We also have a method that computes of 
-
-
+After applying this to the set of all neurons presented to us, we would theoretically have a length 35 array of variable lists containing the significant stimuli to the neuron at whichever index $i$ we were at along the array. 
 
 \subsection{DataParser}
-In order to use the data provided within the text file, we had to develop a  
-
-
-
-
+In order to use the data provided within the text file, we had to develop a  parser which will create all of the neurons that we require. The parser is not optimized for speed in any way, because it just sequentially goes through the text file and every time that it hits a line that begins with the character 'N' it just remembers to create a new Neuron object and add the old one to the accumulator list. At the termination of the algorithm we will have an array filled with 35 neuron objects (because that is how large our data set is).
 
 \section{Creating a Response Space}
+\subsection{Initial Assumptions}
+Our initial method by which to calculate significant stimuli was quite naive really. Since we are going purely by the number of spikes that are generated, the spread of the data is not considered whatsoever, and that is very dangerousin our interpretation of this data. For instance, if we are given spike trains $A$ and $B$, where $A$ has a large number of spikes at the ends of the time intervals, and $B$ has an equally large number of spikes in the middle. According to our first model, they would appropriately be assigned to the fact that they have the same significant stimuli. 
+
+
 \subsection{ResponseSpace}
-The response space class that we defined performs a lot of the analysis that is needed to run our model. 
+
 
 
 More text.
