@@ -38,7 +38,7 @@ public class DataParser {
 							System.out.println("ret is nonempty");
 							ret.add(curNeuron);
 						}*/
-						curNeuron = new Neuron();
+						curNeuron = new Neuron(Integer.parseInt(parts[1].substring(1)));
 						continue;
 					}
 					//<stimulus name> <num> case
@@ -82,17 +82,5 @@ public class DataParser {
 			e.printStackTrace();
 		}
 		return null;
-	}
-	
-	public static void main(String[] args){
-		Set<Neuron> data = parseFile("CS5540_taste.txt");
-		int i = 1;
-		for(Neuron n : data){
-			/*ArrayList<double[]> a = n.getSpikesMap().get(Stimulus.N);
-			for(int i = 0; i < a.size(); i++)
-			System.out.println(a.get(i).length);*/
-			System.out.println(n.sensitiveStimuli() + "          " + i);
-			i++;
-		}
 	}
 }

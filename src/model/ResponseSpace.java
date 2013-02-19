@@ -24,6 +24,7 @@ public class ResponseSpace{
 		for(int i = 0; i < c.size(); i++){
 			for(int j = 0; j < c.size(); j++){
 				distances[i][j] = ResponseSpaceCalculator.align(c.get(i), c.get(j));
+				//System.out.println(distances[i][j]);
 			}
 		}
 	}
@@ -44,7 +45,7 @@ public class ResponseSpace{
 		}
 		//i will be set equal to t
 		int count = 0;
-		double threshold = .5;
+		double threshold = 15.1;
 		for(int j = 0; j < c.size(); j++){
 			if(distances[i][j] <= threshold)
 				count++;

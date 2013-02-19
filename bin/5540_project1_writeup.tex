@@ -51,45 +51,86 @@
 
 \section{Determining Neuron Sensitivity}
 \subsection{Stimulus Class}
-The $\tt{Stimulus}$ class is used to give an object definition in Java for each particular stimulus. We define the stimulus as a Java $\tt{enum}$ (a strict or-type enumerative declaration), so there are no fields that we have to extend for each stimulus. The stimuli are used as a defining piece of data our construction of the $\tt{Neuron}$ class.
+The $\tt{Stimulus}$ class is used to give an object definition in Java for each particular stimulus. We define the stimulus as a Java $\tt{enum}$ (a strict or-type enumerative declaration), so there are no fields that we have to extend for each stimulus. The stimuli are used as defining pieces of data with regards to our construction of the $\tt{Neuron}$ class.
 
 \subsection{Neuron Class}
-This is a class that we developed in order to accurately represent a neuron. The defining feature of the class is the map that is representative of the spike trains that are recorded for each stimuli. We define the map as $spiketimes$, which is a hashmap which takes a stimulus as a key and outputs a double array detailing all of the spike times for that particular stimulus. 
+This is a class that we developed in order to accurately represent a neuron. The defining feature of the class is the map that is representative of the spike trains that are recorded for each stimulus. We define the map as $spiketimes$, which is a hashmap which takes a stimulus as a key and outputs a double array detailing all of the spike times for that particular stimulus. 
 %reword the algorithm used here a bit
 \subsubsection{Sensitive Stimuli}
 This is a simple method to compute (roughly) whether a neuron is sensitive to a a particular stimulus. We first create an outer loop to iterate through the list of all possible stimuli, where we choose a stimulus $s$. Within that outer loop, we have two inner loops to iterate through the different spike time trials for $s$. We have an average counter $avg$ which maintains the average spike number from all of the trials that we have gone through for that particular stimulus. 
 
-At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. We have set the "cutoff" point for the number of spikes to be an average of 30 for a given stimulus $s$. This was an arbitrary choice, and could clearly be optimized further. 
+At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. We have set the "cutoff" point for the number of spikes to be an average of 30 for a given stimulus $s$. This was arbitrarily decided from looking at the training data that we had divided our set into. 
 
-%We also have a method that computes 
-
-
+After applying this to the set of all neurons presented to us, we would theoretically have a length 35 array of variable lists containing the significant stimuli to the neuron at whichever index $i$ we were at along the array. 
 
 \subsection{DataParser}
-In order to use the data provided within the text file, we had to develop a way to parse this to reflect the neurons accurately. The parser is by no means fast, as it simply goes sequentially through the text file and when given lines that begin in the character 'N' it creates a new Neuron. At the end, we have an array of length 35  (the total number of neurons being considered) which each have teh spike trials for each of the stimuli that were tried. 
+In order to use the data provided within the text file, we had to develop a  parser which will create all of the neurons that we require. The parser is not optimized for speed in any way, because it just sequentially goes through the text file and every time that it hits a line that begins with the character 'N' it just remembers to create a new Neuron object and add the old one to the accumulator list. At the termination of the algorithm we will have an array filled with 35 neuron objects (because that is how large our data set is).
 
 \section{Creating a Response Space}
-\subsection{Our Initial Methods}
-Our initial method was quite naive, to determine the significant stimuli for a particular nerve simply by averaging the number of spikes. This method does not account for the inter-spike distance and has quite a few plausible counterexamples to it. For instance, if we have a spike train $A$ which has a large volume of spikes both at the beginning and end of the interval, and spike train $B$ which has an equally large volume of spike residing in the middle, both would be interpreted as having a significance for that stimuli. This is an incredibly large oversight because we do not consider the "spread" of the data at all. 
+\subsection{Initial Assumptions}
+Our initial method by which to calculate significant stimuli was quite naive really. Since we are going purely by the number of spikes that are generated, the spread of the data is not considered whatsoever, and that is very dangerousin our interpretation of this data. For instance, if we are given spike trains $A$ and $B$, where $A$ has a large number of spikes at the ends of the time intervals, and $B$ has an equally large number of spikes in the middle. According to our first model, they would appropriately be assigned to the fact that they have the same significant stimuli. 
 
-\subsection{Improvements to Consider}
-Within our final construction of the Response Space, there were a significant amount of improvements that we sought to make:
+This is clearly not the case, because we can imagine that visually these spike trains do not look alike at all. 
+So within our revised model to create the Response Space, we included a more substantiated approach in order to account for the spread of the data. 
 \begin{itemize}
-\item We sought to incorporate the spread of the spike times into our analysis of how significant stimuli were determined.
-
-\item We wanted to individually assess each of the Neuron-stimulus pairs within the space to compare the clustering of the particular stimuli used in that neuron. 
-
-
-
+\item We must first isolate each Neuron-stimulus pair and then calculate "how close" these responses are.
+\item In order to create this mapping we developed a matching algorithm which calculates how much it "costs" to transform spike trains into on another. 
+\item plotting all of these costs, we can determine distances between all the different spike trains.
+\item We then apply a k-Nearest Neighbors algorithm in order to determine if the stimulus is significant for that particular neuron. 
 \end{itemize}
- 
+
+\subsection{ResponseSpaceCalculator}
+The initial methods present within this class are from an old idea of calculating the correlation coefficient between two sets of floating point numbers, but that was dropped because we cannot guarantee that the length of the two sets will be equal. 
+\subsubsection{Align}
+This method relies on the core assumption that $A$ and $B$ are of equal length, where $A$ and $B$ are sets of floating point numbers. We set the initial cost of transformation ($cost$) to 0. We then iterate through $A$ and then check if it is equal to $B$ at the index $i$. If it is not, then we must transform it with cost $\Delta T$ which is then added onto $cost$. At the end we return $cost$. 
+
+\subsubsection{Align2}
+Here we eliminate the initial assumption on equal length that is present within Align. We can eliminate this with two simple cases:\footnote{Note: This part of the algorithm was developed rather roughly, and a better optimal edit-distance function would have been made if there were more time}
+\begin{itemize}
+\item $length(A) < length(B)$, then we add more elements to A in order to match the length of B. However $cost$ is incremented by a larger amount than usual, because adding elements is a large difference in sets. 
+
+\item The vice-versa of the above statement, we subtract from A in order to match the length of B 
+\end{itemize}
+After the array $A$ has been made into equal length we are able to apply our standard Align algorithm and then add that cost onto our cost accumulator here. 
+
+\subsection{Analyze Data}
+The method described analyze data basically aggregates all of the distances from our two earlier methods for every possible pair or spike trains that exists. This is an incredibly inefficient algorithm, but by the same token it is unavoidable because we must perform it with this specification so that we are able to effectively determine the distance between all of the trials for the stimuli. We create a set of tuples of the form $(A,B, cost)$, where $A$ is the node we start with and $B$ is the node we are trying to get and $cost$ is the cost to transform $A$ to $B$. 
+
+\section{Application of k-NN Algorithm}
+\subsection{TestTrain}
+This is the application of our k-NN algorithm to test what stimulus is significant to the neuron. Each response space comes with a 2D $\tt{double[][]}$ array known as $\tt{distances}$ such that $\tt{distances[i][j]}$ refers to the overall cost it takes for spike train $i$ to be transformed into spike train $j$. This is the metric that is used to identify distances between two spike trains in our feature space. As a result, this is our main computation in calculating the closeness of the cluster. The algorithm then finds the nearest neighbors by setting a threshold/maximum "distance" and seeing how many elements of a particular stimulus are close to the train we want to test. This value is stored in a map $\tt{knnMap}$ and once all maps have been filled for all response spaces, the method $\tt{Neuron.testTrain}$ proceeds to find the maximum number of the nearest neighbors, and the input spike train is said to be of the stimulus type for which it has the most number of neighbors.
+
+
+\section{Statistical Analysis}
+\subsection{Consttruction of our Training Set}
+In following the guidelines of effective sampling techniques to avoid overfitting, we have created a test set on which we ran our algorithm on before touching the larger set. We made our test set by randomly selecting a set of neurons from the original set of 35 which we based our model on, and set aside the other set till we ran the algorithm on our other class. 
+
+\subsection{Quality of our Model}
+Our model pursues the correct idea, but there are significant amount of known flaws within it:
+\begin{enumerate}
+\item{The algorithm, when printed to standard output, seems to assign the same stimulus more often than not to every spike train; very rarely do you see any difference.}
+\item{We decided to maintain the neurons in the text file by parsing them into a $\tt{HashSet}$ with optimality in mind. However, this causes us to lose the natural ordering and the neuron data is printed out of order, and this order is non-deterministic due to the use of a hash function}
+\item{The algorithmic complexity is abhorrently inefficient. We decided to go for functionality instead of efficiency when designing our algorithms and writing our code. There does not seem to be much of a problem with the data set given to us, however we feel that the program may only terminate after a long time if run on a larger set of data, which is not uncommon in a medical environment.}
+
+
+\end{enumerate}
 
 
 
-\subsection{ResponseSpace}
-The response space class that we defined performs a lot of the analysis that is needed to run our model. 
 
 
-More text.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}

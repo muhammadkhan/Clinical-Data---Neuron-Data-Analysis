@@ -5,12 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Neuron {
-	private Map<Stimulus, ArrayList<double[]> > spikeTimes;
-	private ArrayList<ResponseSpace> rspaces;
+	private int id;
+	private Map<Stimulus, ArrayList<double[]> > spikeTimes = new HashMap<Stimulus, ArrayList<double[]> >();
+	private ArrayList<ResponseSpace> rspaces = new ArrayList<ResponseSpace>();
 	
-	public Neuron(){
+	public Neuron(int x){
 		spikeTimes = new HashMap<Stimulus, ArrayList<double[]> >();
 		rspaces = new ArrayList<ResponseSpace>();
+		id = x;
+	}
+	
+	public int getID(){
+		return id;
 	}
 	
 	public Map<Stimulus,ArrayList<double[]> > getSpikesMap(){
