@@ -70,11 +70,66 @@ In order to use the data provided within the text file, we had to develop a  par
 \subsection{Initial Assumptions}
 Our initial method by which to calculate significant stimuli was quite naive really. Since we are going purely by the number of spikes that are generated, the spread of the data is not considered whatsoever, and that is very dangerousin our interpretation of this data. For instance, if we are given spike trains $A$ and $B$, where $A$ has a large number of spikes at the ends of the time intervals, and $B$ has an equally large number of spikes in the middle. According to our first model, they would appropriately be assigned to the fact that they have the same significant stimuli. 
 
+This is clearly not the case, because we can imagine that visually these spike trains do not look alike at all. 
+So within our revised model to create the Response Space, we included a more substantiated approach in order to account for the spread of the data. 
+\begin{itemize}
+\item We must first isolate each Neuron-stimulus pair and then calculate "how close" these responses are.
+\item In order to create this mapping we developed a matching algorithm which calculates how much it "costs" to transform spike trains into on another. 
+\item plotting all of these costs, we can determine distances between all the different spike trains.
+\item We then apply a k-Nearest Neighbors algorithm in order to determine if the stimulus is significant for that particular neuron. 
+\end{itemize}
 
-\subsection{ResponseSpace}
+\subsection{ResponseSpaceCalculator}
+The initial methods present within this class are from an old idea of calculating the correlation coefficient between two sets of floating point numbers, but that was dropped because we cannot guarantee that the length of the two sets will be equal. 
+\subsubsection{Align}
+This method relies on the core assumption that $A$ and $B$ are of equal length, where $A$ and $B$ are sets of floating point numbers. We set the initial cost of transformation ($cost$) to 0. We then iterate through $A$ and then check if it is equal to $B$ at the index $i$. If it is not, then we must transform it with cost $\Delta T$ which is then added onto $cost$. At the end we return $cost$. 
+
+\subsubsection{Align2}
+Here we eliminate the initial assumption on equal length that is present within Align. We can eliminate this with two simple cases:\footnote{Note: This part of the algorithm was developed rather roughly, and a better optimal edit-distance function would have been made if there were more time}
+\begin{itemize}
+\item $length(A) < length(B)$, then we add more elements to A in order to match the length of B. However $cost$ is incremented by a larger amount than usual, because adding elements is a large difference in sets. 
+
+\item The vice-versa of the above statement, we subtract from A in order to match the length of B 
+\end{itemize}
+After the array $A$ has been made into equal length we are able to apply our standard Align algorithm and then add that cost onto our cost accumulator here. 
+
+\subsection{Analyze Data}
+The method described analyze data basically aggregates all of the distances from our two earlier methods for every possible pair or spike trains that exists. 
+
+\subsection{}
 
 
 
-More text.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
