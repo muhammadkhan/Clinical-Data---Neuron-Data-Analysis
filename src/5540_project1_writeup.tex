@@ -51,41 +51,28 @@
 
 \section{Determining Neuron Sensitivity}
 \subsection{Stimulus Class}
-The $\tt{Stimulus}$ class is used to give an object definition in Java for each particular stimulus. We define the stimulus as a Java $\tt{enum}$ (a strict or-type enumerative declaration), so there are no fields that we have to extend for each stimulus. The stimuli are used as a defining piece of data our construction of the $\tt{Neuron}$ class.
+The $\tt{Stimulus}$ class is used to give an object definition in Java for each particular stimulus. We define the stimulus as a Java $\tt{enum}$ (a strict or-type enumerative declaration), so there are no fields that we have to extend for each stimulus. The stimuli are used as defining pieces of data with regards to our construction of the $\tt{Neuron}$ class.
 
 \subsection{Neuron Class}
-This is a class that we developed in order to accurately represent a neuron. The defining feature of the class is the map that is representative of the spike trains that are recorded for each stimuli. We define the map as $spiketimes$, which is a hashmap which takes a stimulus as a key and outputs a double array detailing all of the spike times for that particular stimulus. 
+This is a class that we developed in order to accurately represent a neuron. The defining feature of the class is the map that is representative of the spike trains that are recorded for each stimulus. We define the map as $spiketimes$, which is a hashmap which takes a stimulus as a key and outputs a double array detailing all of the spike times for that particular stimulus. 
 %reword the algorithm used here a bit
 \subsubsection{Sensitive Stimuli}
 This is a simple method to compute (roughly) whether a neuron is sensitive to a a particular stimulus. We first create an outer loop to iterate through the list of all possible stimuli, where we choose a stimulus $s$. Within that outer loop, we have two inner loops to iterate through the different spike time trials for $s$. We have an average counter $avg$ which maintains the average spike number from all of the trials that we have gone through for that particular stimulus. 
 
-At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. We have set the "cutoff" point for the number of spikes to be an average of 30 for a given stimulus $s$. This was an arbitrary choice, and could clearly be optimized further. 
+At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. We have set the "cutoff" point for the number of spikes to be an average of 30 for a given stimulus $s$. This was a 
 
-%We also have a method that computes 
+We also have a method that computes of 
 
 
 
 \subsection{DataParser}
-In order to use the data provided within the text file, we had to develop a way to parse this to reflect the neurons accurately. The parser is by no means fast, as it simply goes sequentially through the text file and when given lines that begin in the character 'N' it creates a new Neuron. At the end, we have an array of length 35  (the total number of neurons being considered) which each have teh spike trials for each of the stimuli that were tried. 
+In order to use the data provided within the text file, we had to develop a  
+
+
+
+
 
 \section{Creating a Response Space}
-\subsection{Our Initial Methods}
-Our initial method was quite naive, to determine the significant stimuli for a particular nerve simply by averaging the number of spikes. This method does not account for the inter-spike distance and has quite a few plausible counterexamples to it. For instance, if we have a spike train $A$ which has a large volume of spikes both at the beginning and end of the interval, and spike train $B$ which has an equally large volume of spike residing in the middle, both would be interpreted as having a significance for that stimuli. This is an incredibly large oversight because we do not consider the "spread" of the data at all. 
-
-\subsection{Improvements to Consider}
-Within our final construction of the Response Space, there were a significant amount of improvements that we sought to make:
-\begin{itemize}
-\item We sought to incorporate the spread of the spike times into our analysis of how significant stimuli were determined.
-
-\item We wanted to individually assess each of the Neuron-stimulus pairs within the space to compare the clustering of the particular stimuli used in that neuron. 
-
-
-
-\end{itemize}
- 
-
-
-
 \subsection{ResponseSpace}
 The response space class that we defined performs a lot of the analysis that is needed to run our model. 
 
