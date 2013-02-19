@@ -85,12 +85,14 @@ public class DataParser {
 	}
 	
 	public static void main(String[] args){
-		Set<Neuron> data = parseFile("src/parser/parsetest.txt");
+		Set<Neuron> data = parseFile("CS5540_taste.txt");
+		int i = 1;
 		for(Neuron n : data){
 			/*ArrayList<double[]> a = n.getSpikesMap().get(Stimulus.N);
 			for(int i = 0; i < a.size(); i++)
 			System.out.println(a.get(i).length);*/
-			System.out.println(n.sensitiveStimuli());
+			System.out.println(n.sensitiveStimuli() + "          " + i);
+			i++;
 		}
 	}
 }

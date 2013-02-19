@@ -163,14 +163,13 @@ public class ResponseSpace{
 	 * @param x
 	 * @return
 	 */
-	public ArrayList calculateComparisonSpace(ArrayList<double[]> x){
+	public ArrayList<Tuple<Integer, Integer, Double>> calculateComparisonSpace(ArrayList<double[]> x){
 		//how do we create the tuple types that we want to return?
-		ArrayList<double[]> acc = new ArrayList<double[]>();
+		ArrayList<Tuple<Integer, Integer, Double>> acc = new ArrayList<Tuple<Integer, Integer, Double>>();
 		for(int i = 0; i < x.size(); i++){
 		  for(int j = 0; j< x.size(); j++){
 			double score = this.align(x.get(i), x.get(j));
-			double[] set = {i,j,score};
-			acc.add(set);
+			acc.add(new Tuple<Integer, Integer, Double>(i, j, score));
 		  }		
 		}
 		return acc;
@@ -185,7 +184,7 @@ public class ResponseSpace{
 	 * @param s
 	 * @return
 	 */
-	public ArrayList createComparisionSpace(Neuron n, Stimulus s){
+	public ArrayList<Tuple<Integer, Integer, Double>> createComparisionSpace(Neuron n, Stimulus s){
 		return this.calculateComparisonSpace(n.getStimulus_Spikes(n, s));
 	}
 	
@@ -224,6 +223,26 @@ public class ResponseSpace{
 		//need to perform tests on the test case input that we have.
 		//Basically we should take like 9 neurons as the test set, that
 		//way we are able to construct an adequate set to model on. 
+	}
+	
+	public class Tuple<S,T,U>{
+		S first;
+		T second;
+		U third;
+		
+		public Tuple(S s, T t, U u){
+			first = s;
+			second = t;
+			third = u;
+		}
+		
+		public S getFirst(){ return first;}
+		public T getSecond(){ return second; }
+		public U getThird(){ return third; }
+		
+		public void setFirst(S s){ first = s; }
+		public void setSecond(T t){ second = t; }
+		public void setThird(U u){ third = u; }
 	}
 }
 
