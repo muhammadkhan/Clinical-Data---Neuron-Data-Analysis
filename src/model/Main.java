@@ -7,7 +7,7 @@ public class Main {
 	
 	
 	public static void main(String[] args){
-		ResponseSpace k = new ResponseSpace();
+		ResponseSpaceCalculator k = new ResponseSpaceCalculator();
 		//test of aligning two like-length sequences.
 		double[] a = {3.0,2.0,1.0};
 		double[] b = {1.0,2.0,3.0};

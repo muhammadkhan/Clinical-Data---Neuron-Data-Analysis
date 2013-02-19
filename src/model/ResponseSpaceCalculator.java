@@ -65,7 +65,7 @@ public class ResponseSpaceCalculator{
 	 * @param b
 	 * @return
 	 */
-	public double align2(double[] a, double[] b){
+	public static double align2(double[] a, double[] b){
 	  double cost = 0;	
 	  for (int i = 0; i < a.length; i++){
 	    if (a[i] > b[i]){
@@ -90,7 +90,7 @@ public class ResponseSpaceCalculator{
 	 * @param b
 	 * @return
 	 */
-	public double align(double[]a, double[] b ){
+	public static double align(double[]a, double[] b ){
 		double cost  = 0;
 		if (a.length < b.length){
 		  //in this instance we must add all of the values 	

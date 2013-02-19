@@ -24,8 +24,8 @@ public class Neuron {
 	 * @return
 	 */
 	public ArrayList<double[]> getStimulus_Spikes(Neuron n, Stimulus x){
-		Map m = n.getSpikesMap();
-		return (ArrayList<double[]>) m.get(x);
+		Map<Stimulus, ArrayList<double[]>> m = n.getSpikesMap();
+		return m.get(x);
 	}
 	
 	/**
