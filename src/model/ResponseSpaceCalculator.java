@@ -78,7 +78,8 @@ public class ResponseSpaceCalculator{
 	    }
 	  }
 	  if (a==b){
-		  System.out.println("A is now equal to B");}
+		  //System.out.println("A is now equal to B");
+	  }
 	  return cost;	
 	}
 	
@@ -95,8 +96,8 @@ public class ResponseSpaceCalculator{
 		if (a.length < b.length){
 		  //in this instance we must add all of the values 	
 		  double[] a_prime = Arrays.copyOf(a, b.length);
-		  System.out.println("Before: "+ Arrays.toString(a));
-		  System.out.println("After: "+ Arrays.toString(a_prime));
+		  //System.out.println("Before: "+ Arrays.toString(a));
+		  //System.out.println("After: "+ Arrays.toString(a_prime));
 		  //we add all of the values that are not in A
 		  for (int i = a.length; i < b.length; i++){
 			  cost += 1;
@@ -109,8 +110,8 @@ public class ResponseSpaceCalculator{
 		else if (a.length > b.length){
 		  //We can do copyOfRange to make them equal length
 		  double[] a_prime = Arrays.copyOfRange(a, 0, b.length);
-		  System.out.println("Before: "+ Arrays.toString(a));
-		  System.out.println("After: "+ Arrays.toString(a_prime));
+		  //System.out.println("Before: "+ Arrays.toString(a));
+		  //System.out.println("After: "+ Arrays.toString(a_prime));
 		  //we also need to truncate A, because 
 		  cost += align2(a_prime,b);
 		}
@@ -208,44 +209,24 @@ public class ResponseSpaceCalculator{
 		double[] a = {3.0,2.0,1.0};
 		double[] b = {1.0,2.0,3.0};
 		double cost = k.align2(a, b);
-		System.out.println(cost);
-		System.out.println(Arrays.toString(a));
+		//System.out.println(cost);
+		//System.out.println(Arrays.toString(a));
 		
 		//test of unsized sequences
 		double[] c = {1.0, 2.0, 3.0, 4.0, 5.0};
 		double[] d = {2.0, 3.0, 4.0};
 		//So this has the case a > b
 		double cost2 = k.align(c,d);
-		System.out.println("The a > b case has cost: " + cost2);
+		//System.out.println("The a > b case has cost: " + cost2);
 		
 		double[] e = {2.0, 3.0, 4.0};
 		double[] f = {1.0, 2.0, 3.0, 4.0, 5.0};
 		double cost3 = k.align(e, f);
-		System.out.println("The a < b case has cost: " + cost3);
+		//System.out.println("The a < b case has cost: " + cost3);
 		
 		//need to perform tests on the test case input that we have.
 		//Basically we should take like 9 neurons as the test set, that
 		//way we are able to construct an adequate set to model on. 
-	}
-	
-	public class Tuple<S,T,U>{
-		S first;
-		T second;
-		U third;
-		
-		public Tuple(S s, T t, U u){
-			first = s;
-			second = t;
-			third = u;
-		}
-		
-		public S getFirst(){ return first;}
-		public T getSecond(){ return second; }
-		public U getThird(){ return third; }
-		
-		public void setFirst(S s){ first = s; }
-		public void setSecond(T t){ second = t; }
-		public void setThird(U u){ third = u; }
 	}
 }
 

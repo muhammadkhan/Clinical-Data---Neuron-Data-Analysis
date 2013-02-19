@@ -1,13 +1,16 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Set;
+
+import parser.DataParser;
 
 public class Main {
 	
 	
 	
 	public static void main(String[] args){
-		ResponseSpaceCalculator k = new ResponseSpaceCalculator();
+		/*ResponseSpaceCalculator k = new ResponseSpaceCalculator();
 		//test of aligning two like-length sequences.
 		double[] a = {3.0,2.0,1.0};
 		double[] b = {1.0,2.0,3.0};
@@ -29,6 +32,13 @@ public class Main {
 		
 		//need to perform tests on the test case input that we have.
 		//Basically we should take like 9 neurons as the test set, that
-		//way we are able to construct an adequate set to model on. 
+		//way we are able to construct an adequate set to model on. */
+		Set<Neuron> neurons = DataParser.parseFile("CS5540_taste.txt");
+		for(Neuron n : neurons)
+			n.genResponseSpaces();
+		//rspaces have been initialized
+		for(Neuron n : neurons){
+			System.out.println(n.testTrain(new double[]{20.0134, 20.4123, 21.5346}));
+		}
 	}
 }

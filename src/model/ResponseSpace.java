@@ -10,9 +10,11 @@ public class ResponseSpace{
 	private ArrayList<double[]> c;
 	private double[][] distances;
 	private Map<double[], Integer> knnMap;
+	private Stimulus sid;
 	
-	public ResponseSpace(ArrayList<double[]> spiketrains){
+	public ResponseSpace(ArrayList<double[]> spiketrains, Stimulus s){
 		c = spiketrains;
+		sid = s;
 		knnMap = new HashMap<double[], Integer>();
 		computeDistances();
 	}
@@ -48,6 +50,16 @@ public class ResponseSpace{
 				count++;
 		}
 		knnMap.put(t, count);
+		c.remove(t);
+		computeDistances();
+	}
+	
+	public Stimulus getStimType(){
+		return sid;
+	}
+	
+	public int numNN(double[] t){
+		return knnMap.get(t);
 	}
 }
 

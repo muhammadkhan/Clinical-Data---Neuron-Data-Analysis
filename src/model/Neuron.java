@@ -6,13 +6,19 @@ import java.util.Map;
 
 public class Neuron {
 	private Map<Stimulus, ArrayList<double[]> > spikeTimes;
+	private ArrayList<ResponseSpace> rspaces;
 	
 	public Neuron(){
 		spikeTimes = new HashMap<Stimulus, ArrayList<double[]> >();
+		rspaces = new ArrayList<ResponseSpace>();
 	}
 	
 	public Map<Stimulus,ArrayList<double[]> > getSpikesMap(){
 		return spikeTimes;
+	}
+	
+	public ArrayList<ResponseSpace> getResponseSpaces(){
+		return rspaces;
 	}
 	
 	/**
@@ -47,7 +53,27 @@ public class Neuron {
 		return stimuli;
 	}
 	
-
+	public void genResponseSpaces(){
+		ArrayList<Stimulus> sensitives = sensitiveStimuli();
+		for(Stimulus s : sensitives){
+			rspaces.add(new ResponseSpace(spikeTimes.get(s), s));
+		}
+	}
 	
+	public Stimulus testTrain(double[] t){
+		for(ResponseSpace rs : rspaces)
+			rs.testTrain(t);
+		
+		int maxNN = Integer.MIN_VALUE;
+		Stimulus type = null;
+		for(ResponseSpace rs : rspaces){
+			int num = rs.numNN(t);
+			if(num > maxNN){
+				maxNN = num;
+				type = rs.getStimType();
+			}
+		}
+		return type;
+	}
 	
 }
