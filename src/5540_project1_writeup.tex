@@ -59,14 +59,10 @@ This is a class that we developed in order to accurately represent a neuron. The
 \subsubsection{Sensitive Stimuli}
 This is a simple method to compute (roughly) whether a neuron is sensitive to a a particular stimulus. We first create an outer loop to iterate through the list of all possible stimuli, where we choose a stimulus $s$. Within that outer loop, we have two inner loops to iterate through the different spike time trials for $s$. We have an average counter $avg$ which maintains the average spike number from all of the trials that we have gone through for that particular stimulus. 
 
-At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. We have set the "cutoff" point for the number of spikes to be an average of 30 for a given stimulus $s$. This was a 
-
-We also have a method that computes of 
-
-
+At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. We have set the "cutoff" point for the number of spikes to be an average of 30 for a given stimulus $s$. This was arbitrarily decided from looking at the training data that we had divided our set into. 
 
 \subsection{DataParser}
-In order to use the data provided within the text file, we had to develop a  
+In order to use the data provided within the text file, we had to develop a  parser which will create all of the neurons that we require. The parser is not optimized for speed in any way, because it just sequentially goes through the text file and every time that it hits a line that begins with the character 'N' it just remembers to add
 
 
 
