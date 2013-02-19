@@ -94,25 +94,26 @@ Here we eliminate the initial assumption on equal length that is present within 
 After the array $A$ has been made into equal length we are able to apply our standard Align algorithm and then add that cost onto our cost accumulator here. 
 
 \subsection{Analyze Data}
-The method described analyze data basically aggregates all of the distances from our two earlier methods for every possible pair or spike trains that exists. 
+The method described analyze data basically aggregates all of the distances from our two earlier methods for every possible pair or spike trains that exists. This is an incredibly inefficient algorithm, but by the same token it is unavoidable because we must perform it with this specification so that we are able to effectively determine the distance between all of the trials for the stimuli. We create a set of tuples of the form $(A,B, cost)$, where $A$ is the node we start with and $B$ is the node we are trying to get and $cost$ is the cost to transform $A$ to $B$. 
 
-\subsection{}
-
-
-
-
+\section{Application of k-NN Algorithm}
+\subsection{TestTrain}
+This is the application of our k-NN algorithm to test what stimulus is significant to the neuron. Each response space comes with a 2D $\tt{double[][]}$ array known as $\tt{distances}$ such that $\tt{distances[i][j]}$ refers to the overall cost it takes for spike train $i$ to be transformed into spike train $j$. This is the metric that is used to identify distances between two spike trains in our feature space. As a result, this is our main computation in calculating the closeness of the cluster. The algorithm then finds the nearest neighbors by setting a threshold/maximum "distance" and seeing how many elements of a particular stimulus are close to the train we want to test. This value is stored in a map $\tt{knnMap}$ and once all maps have been filled for all response spaces, the method $\tt{Neuron.testTrain}$ proceeds to find the maximum number of the nearest neighbors, and the input spike train is said to be of the stimulus type for which it has the most number of neighbors.
 
 
+\section{Statistical Analysis}
+\subsection{Consttruction of our Training Set}
+In following the guidelines of effective sampling techniques to avoid overfitting, we have created a test set on which we ran our algorithm on before touching the larger set. We made our test set by randomly selecting a set of neurons from the original set of 35 which we based our model on, and set aside the other set till we ran the algorithm on our other class. 
+
+\subsection{Quality of our Model}
+Our model pursues the correct idea, but there are significant amount of known flaws within it:
+\begin{enumerate}
+\item{The algorithm, when printed to standard output, seems to assign the same stimulus more often than not to every spike train; very rarely do you see any difference.}
+\item{We decided to maintain the neurons in the text file by parsing them into a $\tt{HashSet}$ with optimality in mind. However, this causes us to lose the natural ordering and the neuron data is printed out of order, and this order is non-deterministic due to the use of a hash function}
+\item{The algorithmic complexity is abhorrently inefficient. We decided to go for functionality instead of efficiency when designing our algorithms and writing our code. There does not seem to be much of a problem with the data set given to us, however we feel that the program may only terminate after a long time if run on a larger set of data, which is not uncommon in a medical environment.}
 
 
-
-
-
-
-
-
-
-
+\end{enumerate}
 
 
 
