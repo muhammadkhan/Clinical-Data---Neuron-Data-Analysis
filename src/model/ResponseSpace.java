@@ -196,53 +196,5 @@ public class ResponseSpace{
 	public void analyzeData(Neuron n){
 	  	
 	}
-	
-	
-	
-	public static void main(String[] args){
-		ResponseSpace k = new ResponseSpace();
-		//test of aligning two like-length sequences.
-		double[] a = {3.0,2.0,1.0};
-		double[] b = {1.0,2.0,3.0};
-		double cost = k.align2(a, b);
-		System.out.println(cost);
-		System.out.println(Arrays.toString(a));
-		
-		//test of unsized sequences
-		double[] c = {1.0, 2.0, 3.0, 4.0, 5.0};
-		double[] d = {2.0, 3.0, 4.0};
-		//So this has the case a > b
-		double cost2 = k.align(c,d);
-		System.out.println("The a > b case has cost: " + cost2);
-		
-		double[] e = {2.0, 3.0, 4.0};
-		double[] f = {1.0, 2.0, 3.0, 4.0, 5.0};
-		double cost3 = k.align(e, f);
-		System.out.println("The a < b case has cost: " + cost3);
-		
-		//need to perform tests on the test case input that we have.
-		//Basically we should take like 9 neurons as the test set, that
-		//way we are able to construct an adequate set to model on. 
-	}
-	
-	public class Tuple<S,T,U>{
-		S first;
-		T second;
-		U third;
-		
-		public Tuple(S s, T t, U u){
-			first = s;
-			second = t;
-			third = u;
-		}
-		
-		public S getFirst(){ return first;}
-		public T getSecond(){ return second; }
-		public U getThird(){ return third; }
-		
-		public void setFirst(S s){ first = s; }
-		public void setSecond(T t){ second = t; }
-		public void setThird(U u){ third = u; }
-	}
 }
 
