@@ -59,7 +59,7 @@ This is a class that we developed in order to accurately represent a neuron. The
 \subsubsection{Sensitive Stimuli}
 This is a simple method to compute (roughly) whether a neuron is sensitive to a a particular stimulus. We first create an outer loop to iterate through the list of all possible stimuli, where we choose a stimulus $s$. Within that outer loop, we have two inner loops to iterate through the different spike time trials for $s$. We have an average counter $avg$ which maintains the average spike number from all of the trials that we have gone through for that particular stimulus. 
 
-At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. 
+At the termination of the inner loop we have a check to decide if the average number of spikes is high enough for us to determine that it is significant. We have set the "cutoff" point for the number of spikes to be an average of 30 for a given stimulus $s$. This was a 
 
 We also have a method that computes of 
 
